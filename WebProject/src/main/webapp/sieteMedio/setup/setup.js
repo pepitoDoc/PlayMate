@@ -244,6 +244,8 @@ window.addEventListener('DOMContentLoaded', () => {
           comienzo = false;
         }
       });
+
+
       if (comienzo == true) {
         sessionStorage.setItem("apuestas", JSON.stringify(apuestas));
         sessionStorage.setItem("nombres", JSON.stringify(nombres));
@@ -259,6 +261,10 @@ window.addEventListener('DOMContentLoaded', () => {
       } else {
         alert("Faltan jugadores");
       }
+    });
+
+    document.querySelector('.btn-secondary').addEventListener('click', ()=>{
+      window.location.replace("http://localhost:8080/WebProject/index.jsp")
     });
 });
 

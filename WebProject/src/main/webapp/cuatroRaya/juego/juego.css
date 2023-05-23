@@ -264,6 +264,24 @@ button[disabled=disabled], button:disabled{
   margin: 0.5em;
 }
 
+.btn-back{
+  cursor:pointer;
+  outline: 0;
+  color: #fff;
+  background-color: #252525;
+  border-color: #252525;
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  border: 1px solid transparent;
+  padding: 6px;
+  font-size: 16px;
+  border-radius: .25rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  margin: 0.5em;
+}
+
 .btn-result{
   cursor:pointer;
   outline: 0;
@@ -280,6 +298,7 @@ button[disabled=disabled], button:disabled{
   border-radius: .25rem;
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
   margin: 0.5em;
+  margin-right: -200px;
 }
 
 .btn-accept{

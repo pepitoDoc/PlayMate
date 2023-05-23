@@ -7,6 +7,7 @@
     Se han de almacenar las partidas, y debe incluir una gestión de consulta de partidas por jugadores-->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="../../resources/sieteymedio.png" type="image/x-icon" />
     <title>Juego</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"

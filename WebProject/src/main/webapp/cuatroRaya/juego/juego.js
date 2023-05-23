@@ -434,6 +434,7 @@ window.addEventListener(
         });
 
 
+
         for (let i = 0; i < identifyButtons.length; i++) {
             identifyButtons[i].addEventListener('click', () => {
                 const userCard = document.querySelector('#user' + (i + 1));
@@ -585,5 +586,7 @@ window.addEventListener(
             return parent !== child && parent.contains(child);
         }
 
-
+        document.querySelector('.btn-back').addEventListener('click', () => {
+            window.location.replace("http://localhost:8080/WebProject/index.jsp")
+        });
     });

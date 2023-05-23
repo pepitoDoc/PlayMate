@@ -17,17 +17,30 @@
     <body>
         <section>
             <div class="container">
-                <div class="row">
-                    <h1 class="text-center my-3">BUSQUEDA DE PARTIDOS <span class="badge bg-primary">4 EN RAYA</span>
+                <div class="row text-center">
+                    <h1 class="my-lg-4 display-7 fw-bold ls-tight" style="color: hsl(0, 0%, 0%)">
+                        <img src="../../resources/logoPlayMate.png" class="img-fluid me-3"
+                            style="width: 100px; height: 100px;" alt="Responsive image">Play
+                        <span style="color: hsl(216, 100%, 50%)">MATE</span>
                     </h1>
                 </div>
+                <div class="row">
+                    <h2 class="text-center my-2">BUSQUEDA DE PARTIDOS <span class="badge bg-primary">4 EN RAYA</span>
+                    </h2>
+                </div>
                 <div class="row d-flex justify-content-center">
-                    <input class="nickname" type="text" class="form-control" placeholder="Nombre" aria-label="Nombre">
+                    <label for="nickname" class="col-sm-2 col-form-label my-5">Nombre</label>
+                    <div class="col-4">
+                        <input type="text" class="nickname form-control my-5" name="nickname"
+                            placeholder="Nombre de usuario">
+                    </div>
                 </div>
-                <div class="row justify-content-center my-5 justify-content-between">
-                    <button type="button" class="btn btn-primary col-3">Buscar por nombre</button>
-                    <button type="button" class="btn btn-secondary col-3">Menú principal</button>
-                </div>
+            </div>
+            <div class="row justify-content-center my-2">
+                <button type="button" class="btn btn-primary col-1">Buscar por nombre</button>
+                <div class="col-2"></div>
+                <button type="button" class="btn btn-secondary col-1">Menú principal</button>
+            </div>
             </div>
         </section>
         <section>

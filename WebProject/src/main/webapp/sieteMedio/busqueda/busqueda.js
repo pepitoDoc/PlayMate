@@ -11,6 +11,10 @@ window.addEventListener(
         alert("Debe introducir un nombre para buscar");
       }
     });
+
+    document.querySelector('.btn-secondary').addEventListener('click', ()=>{
+      window.location.replace("http://localhost:8080/WebProject/index.jsp")
+    });
   },
   false
 );

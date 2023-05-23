@@ -59,6 +59,7 @@
             <div class="footer">
                 <button class="reset">Empezar de nuevo</button>
                 <button class="btn-result">Ver resultados</button>
+                <button class="btn-back">Volver al inicio</button>
             </div>
         </div>
     </section>
