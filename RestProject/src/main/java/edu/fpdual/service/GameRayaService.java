@@ -8,23 +8,50 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * @author: Álvaro Terrasa y Artem Korzhan
+ * @version: 1.0
+ * Clase de servicio para el cuatro en raya. Gestiona la conexión con la BBDD
+ * y se encarga de ejecutar los métodos SQL de persistencia, haciendo de capa
+ * intermedia entre esta y su controlador pertinente.
+ */
 public class GameRayaService {
 
+    /**
+     * Clase del conector.
+     */
     private MySQLConnector connector;
+    /**
+     * Clase de implementación de métodos SQL.
+     */
     private GameRayaManagerImpl manager;
 
-    public GameRayaService(MySQLConnector con, GameRayaManagerImpl manager) {
-        this.connector = con;
+    /**
+     * Constructor que crea el objeto de servicio connector sus atributos
+     *
+     * @param connector - MySQLConnector - Conector de la BBDD.
+     * @param manager   - GameSieteManagerImpl - Clase connector los métodos SQL.
+     */
+    public GameRayaService(MySQLConnector connector, GameRayaManagerImpl manager) {
+        this.connector = connector;
         this.manager = manager;
     }
 
-    public int insertGame(GameRaya game4Raya) throws SQLException, ClassNotFoundException {
+    /**
+     * Realiza una operación insert que introduce una partida en la BBDD.
+     *
+     * @param gameRaya - GameRaya - Partida a registrar
+     * @return int - Resultado de la operación (n.º filas afectadas)
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    public int insertGame(GameRaya gameRaya) throws SQLException, ClassNotFoundException {
 
         Connection con = null;
 
         try {
             con = connector.getMySQLConnection();
-            return manager.insert(con, game4Raya);
+            return manager.insert(con, gameRaya);
         } finally {
             if (con != null) {
                 con.close();
@@ -32,6 +59,16 @@ public class GameRayaService {
         }
     }
 
+    /**
+     * Realiza una operación select que devuelve una lista de partidas de
+     * cuatro en raya en las que haya participado el jugador con el nombre proporcionado.
+     *
+     * @param nickname - String - Nombre del jugador
+     * @return <u>
+     * <li>List<GameRaya> Lista de partidas encontradas</li>
+     * <li>null - Operación fallida</li>
+     * </u>
+     */
     public List<GameRaya> findGameByName(String nickname) throws SQLException, ClassNotFoundException {
 
         Connection con = null;
@@ -39,7 +76,7 @@ public class GameRayaService {
             con = connector.getMySQLConnection();
             return manager.findByName(con, nickname);
         } finally {
-            if (con!=null) {
+            if (con != null) {
                 con.close();
             }
         }

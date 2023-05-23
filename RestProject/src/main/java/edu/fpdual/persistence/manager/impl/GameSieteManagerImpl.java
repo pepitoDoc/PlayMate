@@ -3,6 +3,7 @@ package edu.fpdual.persistence.manager.impl;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 import edu.fpdual.api.dto.GameSiete;
 import lombok.NoArgsConstructor;
 
@@ -17,9 +18,10 @@ public class GameSieteManagerImpl {
 
     /**
      * Realiza una operación insert que introduce una partida en la BBDD.
-     * @param con - Connection
-     * @param gameSiete - GameSiete
-     * @return int - Resultado de la operación
+     *
+     * @param con       - Connection - Conexión con la BBDD
+     * @param gameSiete - GameSiete - Partida a introducir
+     * @return int - Resultado de la operación (n.º filas introducidas)
      */
     public int insert(Connection con, GameSiete gameSiete) {
 
@@ -46,18 +48,25 @@ public class GameSieteManagerImpl {
     }
 
     /**
-     * Realiza una operación insert que introduce una partida en la BBDD.
-     * @param con - Connection
-     * @param name - String
-     * @return List<GameSiete> - Lista de partidas recuperadas
+     * Realiza una operación select que devuelve una lista de partidas de
+     * siete y medio en las que haya participado el jugador con el nombre proporcionado.
+     *
+     * @param con  - Connection - Conexión con la BBDD.
+     * @param name - String - Nombre del jugador
+     * @return <u>
+     * <li>List<GameSiete> Lista de partidas encontradas</li>
+     * <li>null - Operación fallida</li>
+     * </u>
      */
     public List<GameSiete> findByName(Connection con, String name) {
+
         String sql = "SELECT player1, player2, player3, dealer, timestamp, player1score, player2score, player3score, dealerScore, " +
                 "player1bet, player2bet, player3bet FROM gamesiete WHERE " +
                 "player1 LIKE ? OR " +
                 "player2 LIKE ? OR " +
                 "player3 LIKE ? OR " +
                 "dealer LIKE ?";
+
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, "%" + name + "%");
             stmt.setString(2, "%" + name + "%");

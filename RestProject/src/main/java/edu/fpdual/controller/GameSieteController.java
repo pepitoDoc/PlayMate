@@ -30,9 +30,9 @@ public class GameSieteController {
 
     /**
      * Realiza una operación insert que introduce una partida en la BBDD.
-     * @param gameSiete - GameSiete
-     * @return
-     * <u>
+     *
+     * @param gameSiete - GameSiete - Juego de siete y medio a registrar
+     * @return <u>
      * <li>Response.status(Response.Status.CREATED) - Operación exitosa</li>
      * <li>Response.serverError() - Operación fallida</li>
      * </u>
@@ -55,6 +55,7 @@ public class GameSieteController {
     /**
      * Realiza una consulta select en la BBDD que devuelve una lista de GameSiete
      * que contengan el nombre aportado en el QueryParam.
+     *
      * @param nickname - String - QueryParam
      * @return - Response con el listado de partidas.
      * @throws SQLException

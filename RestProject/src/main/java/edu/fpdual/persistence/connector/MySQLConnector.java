@@ -9,11 +9,23 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * @author : José M. Prieto Villar
+ * @version : 1.0
+ * Clase que establece la conexión con la BBDD.
+ */
 @Getter
 @Setter
 public class MySQLConnector {
 
+    /**
+     * Archivo de propiedades para la conexión de la BBDD.
+     */
     Properties prop = new Properties();
+
+    /**
+     * Constructor de la clase, que carga la configuración para la conexión con la BBDD.
+     */
     public MySQLConnector() {
         try {
             //Loads all the properties of file "config.properties".
@@ -25,6 +37,7 @@ public class MySQLConnector {
 
     /**
      * Creates the connection object for a MySQL DDBB
+     *
      * @return a {@link Connection}
      * @throws ClassNotFoundException
      * @throws SQLException
@@ -36,7 +49,7 @@ public class MySQLConnector {
             Class.forName(prop.getProperty(MySQLConstants.DRIVER));
 
             //Creates the connection based on the obtained URL.
-            return  DriverManager.getConnection(getURL());
+            return DriverManager.getConnection(getURL());
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -46,6 +59,7 @@ public class MySQLConnector {
 
     /**
      * Obtains the URL to connect to a MySQL DDBB.
+     *
      * @return an URL
      */
     private String getURL() {

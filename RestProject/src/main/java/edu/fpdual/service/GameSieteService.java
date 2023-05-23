@@ -3,12 +3,12 @@ package edu.fpdual.service;
 import edu.fpdual.api.dto.GameSiete;
 import edu.fpdual.persistence.connector.MySQLConnector;
 import edu.fpdual.persistence.manager.impl.GameSieteManagerImpl;
-import lombok.Getter;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-@Getter
+
+
 /**
  * @author: Álvaro Terrasa y Artem Korzhan
  * @version: 1.0
@@ -29,8 +29,9 @@ public class GameSieteService {
 
     /**
      * Constructor que crea el objeto de servicio con sus atributos
-     * @param connector - MySQLConnector
-     * @param manager - GameSieteManagerImpl
+     *
+     * @param connector - MySQLConnector - Conector de la BBDD.
+     * @param manager   - GameSieteManagerImpl - Clase con los métodos SQL.
      */
     public GameSieteService(MySQLConnector connector, GameSieteManagerImpl manager) {
         this.connector = connector;
@@ -39,8 +40,9 @@ public class GameSieteService {
 
     /**
      * Realiza una operación insert que introduce una partida en la BBDD.
-     * @param gameSiete - GameSiete
-     * @return int - Resultado de la operación
+     *
+     * @param gameSiete - GameSiete - Partida a registrar
+     * @return int - Resultado de la operación (n.º filas afectadas)
      * @throws SQLException
      * @throws ClassNotFoundException
      */
@@ -52,18 +54,21 @@ public class GameSieteService {
             con = connector.getMySQLConnection();
             return manager.insert(con, gameSiete);
         } finally {
-            if (con!=null) {
+            if (con != null) {
                 con.close();
             }
         }
     }
 
     /**
-     * Realiza una consulta select en la BBDD que devuelve una lista de GameSiete
-     * @param nickname - String
-     * @return - List<GameSiete> - Lista de partidas recuperadas
-     * @throws SQLException
-     * @throws ClassNotFoundException
+     * Realiza una operación select que devuelve una lista de partidas de
+     * siete y medio en las que haya participado el jugador con el nombre proporcionado.
+     *
+     * @param nickname - String - Nombre del jugador
+     * @return <u>
+     * <li>List<GameSiete> Lista de partidas encontradas</li>
+     * <li>null - Operación fallida</li>
+     * </u>
      */
     public List<GameSiete> findGameByName(String nickname) throws SQLException, ClassNotFoundException {
 
@@ -72,7 +77,7 @@ public class GameSieteService {
             con = connector.getMySQLConnection();
             return manager.findByName(con, nickname);
         } finally {
-            if (con!=null) {
+            if (con != null) {
                 con.close();
             }
         }

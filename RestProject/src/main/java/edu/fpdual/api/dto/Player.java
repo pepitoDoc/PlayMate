@@ -25,13 +25,13 @@ public class Player {
     /**
      * Constructor que permite generar un objeto Player
      * a partir del resultado de una consulta SQL.
-     * @param result - ResultSet
+     * @param resultSet - ResultSet - Fila de la BBDD.
      */
-    public Player(ResultSet result) {
+    public Player(ResultSet resultSet) {
         try {
-            this.nickname = result.getString("nickname");
-            this.password = result.getString("password");
-            this.email = result.getString("email");
+            this.nickname = resultSet.getString("nickname");
+            this.password = resultSet.getString("password");
+            this.email = resultSet.getString("email");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

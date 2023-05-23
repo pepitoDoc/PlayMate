@@ -3,8 +3,6 @@ package edu.fpdual.service;
 import edu.fpdual.api.dto.Player;
 import edu.fpdual.persistence.connector.MySQLConnector;
 import edu.fpdual.persistence.manager.impl.PlayerManagerImpl;
-import jakarta.validation.GroupSequence;
-import lombok.Getter;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -16,7 +14,6 @@ import java.sql.SQLException;
  * y se encarga de ejecutar los métodos SQL de persistencia, haciendo de capa
  * intermedia entre esta y su controlador pertinente.
  */
-@Getter
 public class PlayerService {
 
     /**
@@ -30,8 +27,9 @@ public class PlayerService {
 
     /**
      * Constructor que crea el objeto de servicio con sus atributos
-     * @param connector - MySQLConnector
-     * @param manager - PlayerManagerImpl
+     *
+     * @param connector - MySQLConnector - Conector de la BBDD.
+     * @param manager   - GameSieteManagerImpl - Clase con los métodos SQL.
      */
     public PlayerService(MySQLConnector connector, PlayerManagerImpl manager) {
         this.connector = connector;
@@ -40,12 +38,13 @@ public class PlayerService {
 
     /**
      * Realiza una operación insert que registra un jugador en la BBDD.
-     * @param player - Player
+     *
+     * @param player - Player - Jugador a registrar
      * @return int - Resultado de la operación
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public int insertPlayer(Player player) throws SQLException, ClassNotFoundException{
+    public int insertPlayer(Player player) throws SQLException, ClassNotFoundException {
 
         Connection con = null;
 
@@ -62,8 +61,9 @@ public class PlayerService {
     /**
      * Realiza una operación select que busca un jugador cuyo
      * nombre o email coincidan con los argumentos enviados correspondientes
-     * @param nickname - String
-     * @param email - String
+     *
+     * @param nickname - String - Nombre del jugador
+     * @param email    - String - Email del jugador
      * @return Player - El jugador encontrado
      * @throws SQLException
      * @throws ClassNotFoundException
@@ -85,7 +85,8 @@ public class PlayerService {
     /**
      * Realiza una operación select que busca un jugador
      * cuyo nombre coincida con el argumento enviado
-     * @param nickname - String
+     *
+     * @param nickname - String - Nombre del jugador
      * @return Player - El jugador encontrado
      * @throws SQLException
      * @throws ClassNotFoundException
@@ -107,8 +108,9 @@ public class PlayerService {
     /**
      * Realiza una operación update que cambia la contraseña de un jugador por
      * la enviada en el objeto Player del argumento
-     * @param player
-     * @return
+     *
+     * @param player - Player - Jugador con la nueva contraseña
+     * @return int - Resultado de la operación (n.º de filas afectadas)
      * @throws SQLException
      * @throws ClassNotFoundException
      */

@@ -12,12 +12,22 @@ import java.sql.SQLException;
 @ToString
 @Builder
 @Data
+/**
+ * @author: Álvaro Terrasa y Artem Korzhan
+ * @version: 1.0
+ * Objeto que representa a una partida de cuatro en raya en la BBDD.
+ */
 public class GameRaya {
     private String player1;
     private String player2;
     private String winner;
     private String date;
 
+    /**
+     * Constructor que genera un GameSiete a partir del resultado de
+     * una consulta SQL.
+     * @param resultSet - ResultSet - Fila de la BBDD.
+     */
     public GameRaya(ResultSet resultSet) {
         try {
             this.player1 = resultSet.getString(("player1"));

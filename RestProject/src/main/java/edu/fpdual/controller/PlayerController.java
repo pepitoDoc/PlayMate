@@ -19,13 +19,17 @@ import java.sql.SQLException;
 @Path("/player")
 public class PlayerController {
 
+    /**
+     * Servicio del jugador, que media entre el controlador y la
+     * capa de peristencia.
+     */
     private PlayerService service;
 
     /**
      * Realiza una operación insert que registra un usuario en la BBDD.
+     *
      * @param player - Player
-     * @return
-     * <u>
+     * @return <u>
      * <li>Response.status(Response.Status.CREATED) - Operación exitosa</li>
      * <li>Response.serverError() - Operación fallida</li>
      * </u>
@@ -35,7 +39,7 @@ public class PlayerController {
     @POST
     @Path("/insertPlayer")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response insertPlayer(Player player) throws SQLException, ClassNotFoundException{
+    public Response insertPlayer(Player player) throws SQLException, ClassNotFoundException {
 
         service = new PlayerService(new MySQLConnector(), new PlayerManagerImpl());
         int result = service.insertPlayer(player);
@@ -49,8 +53,9 @@ public class PlayerController {
     /**
      * Realiza una consulta select para buscar jugadores que contengan
      * el nombre o el email proporcionado en los QueryParam.
+     *
      * @param nickname - String - QueryParam
-     * @param email - String - QueryParam
+     * @param email    - String - QueryParam
      * @return - Response con el jugador encontrado
      * @throws SQLException
      * @throws ClassNotFoundException
@@ -70,6 +75,7 @@ public class PlayerController {
     /**
      * Realiza una consulta select para buscar jugadores que contengan
      * el nombre proporcionado en el QueryParam.
+     *
      * @param nickname - String - QueryParam
      * @return - Response con el jugador encontrado
      * @throws SQLException
@@ -90,9 +96,9 @@ public class PlayerController {
     /**
      * Realiza una operación update que cambia la contraseña de
      * un usuario en la BBDD que contenga el email del jugador proporcionado
-     * @param player - Player
-     * @return
-     * <u>
+     *
+     * @param player - Player - Objeto jugador con la nueva contraseña
+     * @return <u>
      * <li>Response.status(Response.Status.CREATED) - Operación exitosa</li>
      * <li>Response.serverError() - Operación fallida</li>
      * </u>

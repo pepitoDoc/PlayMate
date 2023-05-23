@@ -36,22 +36,22 @@ public class GameSiete {
     /**
      * Constructor que genera un GameSiete a partir del resultado de
      * una consulta SQL.
-     * @param result - ResultSet
+     * @param resultSet - ResultSet - Fila de la BBDD.
      */
-    public GameSiete(ResultSet result) {
+    public GameSiete(ResultSet resultSet) {
         try {
-            this.player1 = result.getString("player1");
-            this.player2 = result.getString("player2");
-            this.player3 = result.getString("player3");
-            this.dealer = result.getString("dealer");
-            this.player1score = result.getFloat("player1score");
-            this.player2score = result.getFloat("player2score");
-            this.player3score = result.getFloat("player3score");
-            this.dealerScore = result.getFloat("dealerScore");
-            this.player1bet = result.getFloat("player1bet");
-            this.player2bet = result.getFloat("player2bet");
-            this.player3bet = result.getFloat("player3bet");
-            this.timestamp = result.getDate("timestamp");
+            this.player1 = resultSet.getString("player1");
+            this.player2 = resultSet.getString("player2");
+            this.player3 = resultSet.getString("player3");
+            this.dealer = resultSet.getString("dealer");
+            this.player1score = resultSet.getFloat("player1score");
+            this.player2score = resultSet.getFloat("player2score");
+            this.player3score = resultSet.getFloat("player3score");
+            this.dealerScore = resultSet.getFloat("dealerScore");
+            this.player1bet = resultSet.getFloat("player1bet");
+            this.player2bet = resultSet.getFloat("player2bet");
+            this.player3bet = resultSet.getFloat("player3bet");
+            this.timestamp = resultSet.getDate("timestamp");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

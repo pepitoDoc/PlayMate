@@ -1,5 +1,11 @@
 package edu.fpdual.persistence.connector;
 
+/**
+ * @author : José M. Prieto Villar
+ * @version : 1.0
+ * Clase que permite cargar las constantes del archivo "config.properties"
+ * del paquete de "resources".
+ */
 public class MySQLConstants {
     public static final String PASSWD = "jdbc.mysql.passwd";
     public static final String USER = "jdbc.mysql.user";

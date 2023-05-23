@@ -10,9 +10,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author : Álvaro Terrasa y Artem Korzhan
+ * @version : 1.0
+ * Clase que contiene todos los métodos con la lógica SQL
+ * para realizar operaciones en la BBDD para el objeto GameRaya.
+ */
 public class GameRayaManagerImpl implements GameRayaManager {
 
-
+    /**
+     * Realiza una operación insert que introduce una partida en la BBDD.
+     *
+     * @param con      - Connection - Conexión con la BBDD
+     * @param gameRaya - GameRaya - Partida a introducir
+     * @return int - Resultado de la operación
+     */
     public int insert(Connection con, GameRaya gameRaya) {
 
         String sql = "INSERT INTO gameraya(player1, player2, winner, date) values (?, ?, ?, ?)";
@@ -29,7 +41,17 @@ public class GameRayaManagerImpl implements GameRayaManager {
         }
     }
 
-
+    /**
+     * Realiza una operación select que devuelve una lista de partidas de
+     * cuatro en raya en las que haya participado el jugador con el nombre proporcionado.
+     *
+     * @param con  - Connection - Conexión con la BBDD.
+     * @param name - String - Nombre del jugador
+     * @return <u>
+     * <li>List<GameRaya> - Lista de partidas encontradas</li>
+     * <li>null - Operación fallida</li>
+     * </u>
+     */
     public List<GameRaya> findByName(Connection con, String name) {
         String sql = "SELECT * FROM gameraya WHERE " +
                 "player1 LIKE ? OR " +
