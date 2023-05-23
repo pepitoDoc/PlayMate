@@ -131,4 +131,19 @@ public class PlayerService {
 
     }
 
+    public int deletePlayer(Player player) throws SQLException, ClassNotFoundException {
+
+        Connection con = null;
+
+        try {
+            con = connector.getMySQLConnection();
+            return manager.delete(con, player);
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+
+
 }

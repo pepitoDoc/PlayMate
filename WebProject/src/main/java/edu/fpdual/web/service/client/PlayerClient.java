@@ -19,6 +19,11 @@ public class PlayerClient {
         this.webTarget = client.target("http://localhost:8081/RestProject/api/player");
     }
 
+    public Response deletePlayer(Player player){
+        return webTarget.path("/deletePlayer")
+                .request(MediaType.TEXT_PLAIN)
+                .post(Entity.entity(player, MediaType.APPLICATION_JSON));
+    }
     public Response insertPlayer(Player player) {
 
         return webTarget.path("/insertPlayer")

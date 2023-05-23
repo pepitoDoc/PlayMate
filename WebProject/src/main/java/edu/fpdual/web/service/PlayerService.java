@@ -18,6 +18,30 @@ public class PlayerService {
         this.playerClient = new PlayerClient();
         this.verificationCodeGenerator = new VerificationCodeGenerator();
     }
+
+    public String deletePlayer(Player player){
+        String result = "0";
+
+        Player playerFound = this.playerClient.findPlayer(player.getNickname(), player.getPassword());
+        if(playerFound != null){
+            if(player.getNickname().equals(playerFound.getNickname()) && player.getPassword().equals(playerFound.getPassword())){
+                result = "1";
+            }else{
+                result= "0";
+            }
+        }
+        if(result.equals("1")){
+            Response response = new PlayerClient().deletePlayer(player);
+            if(response.getStatus() == 201){
+                return "1";
+            }else{
+                return "0";
+            }
+        }
+
+        return result;
+    }
+
     public String insertPlayer(Player player) {
 
         String result = "0";

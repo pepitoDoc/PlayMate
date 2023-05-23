@@ -1,4 +1,4 @@
-# Created at 2023-05-18T23:56:08.093
+# Created at 2023-05-24T01:16:55.977
 java.lang.NoSuchMethodError: 'void org.apache.maven.surefire.report.RunListener.testSetStarting(org.apache.maven.surefire.report.ReportEntry)'
 	at org.junit.platform.surefire.provider.JUnitPlatformProvider.invokeSingleClass(JUnitPlatformProvider.java:137)
 	at org.junit.platform.surefire.provider.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:126)

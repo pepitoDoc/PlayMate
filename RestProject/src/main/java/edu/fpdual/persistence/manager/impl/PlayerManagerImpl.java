@@ -117,4 +117,16 @@ public class PlayerManagerImpl implements PlayerManager {
         }
     }
 
+    public int delete(Connection con, Player player) {
+        String sql = "DELETE FROM player WHERE nickname LIKE ? AND password LIKE ?";
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, player.getNickname());
+            stmt.setString(2, player.getPassword());
+            return stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
 }

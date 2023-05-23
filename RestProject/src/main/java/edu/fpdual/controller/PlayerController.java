@@ -123,4 +123,17 @@ public class PlayerController {
         }
 
     }
+
+    @POST
+    @Path("/deletePlayer")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response deletePlayer(Player player) throws SQLException, ClassNotFoundException {
+
+        int result = playerService.deletePlayer(player);
+        if (result > 0) {
+            return Response.status(Response.Status.CREATED).build();
+        } else {
+            return Response.serverError().build();
+        }
+    }
 }
