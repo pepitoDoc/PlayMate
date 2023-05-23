@@ -25,60 +25,105 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class PlayerControllerTest {
 
-    @InjectMocks
-    private PlayerController playerControllerInject;
-
-    @Mock
-    private PlayerController playerControllerMock;
-
     @Mock
     private PlayerService playerServiceMock;
 
     @Mock
-    private PlayerManagerImpl playerManagerMock;
-
-    @Mock
-    private Connection connectionMock;
-
-    @Mock
-    private MySQLConnector connectorMock;
-
-    @Mock
     private Player playerMock;
 
-    @Mock
-    private PreparedStatement preparedStatementMock;
+    @InjectMocks
+    private PlayerController playerControllerInject;
+
+    @Before
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
 
     @Test
     public void testInsertPlayer_ok() throws SQLException, ClassNotFoundException {
+
+        when(playerServiceMock.insertPlayer(playerMock)).thenReturn(1);
+
+        Response response = playerControllerInject.insertPlayer(playerMock);
+
+        MatcherAssert.assertThat(response.getStatus(), Matchers.is(201));
 
     }
 
     @Test
     public void testInsertPlayer_ko() throws SQLException, ClassNotFoundException {
 
-        when(playerControllerMock.insertPlayer(playerMock)).thenReturn(Response.serverError().build());
+        when(playerServiceMock.insertPlayer(playerMock)).thenReturn(0);
 
-        Response response = playerControllerMock.insertPlayer(playerMock);
+        Response response = playerControllerInject.insertPlayer(playerMock);
 
         MatcherAssert.assertThat(response.getStatus(), Matchers.is(500));
 
     }
 
     @Test
-    public void testFindPlayerByName_ok() throws SQLException, ClassNotFoundException{
+    public void testFindPlayer_ok() throws SQLException, ClassNotFoundException {
 
-        Response response = playerControllerInject.findPlayerByName("");
+        when(playerServiceMock.findPlayer(anyString(), anyString())).thenReturn(playerMock);
 
-        assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
+        Response response = playerControllerInject.findPlayer(anyString(), anyString());
+
+        MatcherAssert.assertThat(response.getEntity(), Matchers.is(playerMock));
 
     }
 
     @Test
-    public void testFindPlayer_ok() throws SQLException, ClassNotFoundException{
+    public void testFindPlayer_ko() throws SQLException, ClassNotFoundException {
 
-        Response response = playerControllerInject.findPlayer("", "");
-        assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
+        when(playerServiceMock.findPlayer(anyString(), anyString())).thenReturn(null);
+
+        Response response = playerControllerInject.findPlayer(anyString(), anyString());
+
+        MatcherAssert.assertThat(response.getEntity(), Matchers.nullValue());
+
+    }
+
+    @Test
+    public void testFindPlayerByName_ok() throws SQLException, ClassNotFoundException {
+
+        when(playerServiceMock.findPlayerByName(anyString())).thenReturn(playerMock);
+
+        Response response = playerControllerInject.findPlayerByName(anyString());
+
+        MatcherAssert.assertThat(response.getEntity(), Matchers.is(playerMock));
+
+    }
+
+    @Test
+    public void testFindPlayerByName_ko() throws SQLException, ClassNotFoundException {
+
+        when(playerServiceMock.findPlayerByName(anyString())).thenReturn(null);
+
+        Response response = playerControllerInject.findPlayerByName(anyString());
+
+        MatcherAssert.assertThat(response.getEntity(), Matchers.nullValue());
+
+    }
+
+    @Test
+    public void testUpdatePassword_ok() throws SQLException, ClassNotFoundException {
+
+        when(playerServiceMock.updatePassword(playerMock)).thenReturn(1);
+
+        Response response = playerControllerInject.updatePassword(playerMock);
+
+        MatcherAssert.assertThat(response.getStatus(), Matchers.is(201));
+
+    }
+
+    @Test
+    public void testUpdatePassword_ko() throws SQLException, ClassNotFoundException {
+
+        when(playerServiceMock.updatePassword(playerMock)).thenReturn(0);
+
+        Response response = playerControllerInject.updatePassword(playerMock);
+
+        MatcherAssert.assertThat(response.getStatus(), Matchers.is(500));
 
     }
 

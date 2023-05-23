@@ -12,7 +12,7 @@ import java.util.Properties;
 /**
  * @author : José M. Prieto Villar
  * @version : 1.0
- * Clase que establece la conexión con la BBDD.
+ * Clase que establece la conexión con la BBDD de MySQL.
  */
 @Getter
 @Setter

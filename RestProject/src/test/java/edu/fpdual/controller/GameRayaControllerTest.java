@@ -1,7 +1,7 @@
 package edu.fpdual.controller;
 
-import edu.fpdual.api.dto.GameSiete;
-import edu.fpdual.service.GameSieteService;
+import edu.fpdual.api.dto.GameRaya;
+import edu.fpdual.service.GameRayaService;
 import jakarta.ws.rs.core.Response;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -20,19 +20,19 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class GameSieteControllerTest {
+public class GameRayaControllerTest {
 
     @Mock
-    private GameSieteService gameSieteServiceMock;
+    private GameRayaService gameRayaServiceMock;
 
     @Mock
-    private GameSiete gameSieteMock;
+    private GameRaya gameRayaMock;
 
     @Mock
-    private List<GameSiete> gameSieteListMock;
+    private List<GameRaya> listGameRayaMock;
 
     @InjectMocks
-    private GameSieteController gameSieteControllerInject;
+    private GameRayaController gameRayaControllerInject;
 
     @Before
     public void setUp() {
@@ -42,9 +42,9 @@ public class GameSieteControllerTest {
     @Test
     public void testInsertGame_ok() throws SQLException, ClassNotFoundException {
 
-        when(gameSieteServiceMock.insertGame(gameSieteMock)).thenReturn(1);
+        when(gameRayaServiceMock.insertGame(gameRayaMock)).thenReturn(1);
 
-        Response response = gameSieteControllerInject.insertGame(gameSieteMock);
+        Response response = gameRayaControllerInject.insertGame(gameRayaMock);
 
         MatcherAssert.assertThat(response.getStatus(), Matchers.is(201));
 
@@ -53,9 +53,9 @@ public class GameSieteControllerTest {
     @Test
     public void testInsertGame_ko() throws SQLException, ClassNotFoundException {
 
-        when(gameSieteServiceMock.insertGame(gameSieteMock)).thenReturn(0);
+        when(gameRayaServiceMock.insertGame(gameRayaMock)).thenReturn(0);
 
-        Response response = gameSieteControllerInject.insertGame(gameSieteMock);
+        Response response = gameRayaControllerInject.insertGame(gameRayaMock);
 
         MatcherAssert.assertThat(response.getStatus(), Matchers.is(500));
 
@@ -64,20 +64,20 @@ public class GameSieteControllerTest {
     @Test
     public void testFindByName_ok() throws SQLException, ClassNotFoundException {
 
-        when(gameSieteServiceMock.findGameByName(anyString())).thenReturn(gameSieteListMock);
+        when(gameRayaServiceMock.findGameByName(anyString())).thenReturn(listGameRayaMock);
 
-        Response response = gameSieteControllerInject.findByName(anyString());
+        Response response = gameRayaControllerInject.findGameByName(anyString());
 
-        MatcherAssert.assertThat(response.getEntity(), Matchers.is(gameSieteListMock));
+        MatcherAssert.assertThat(response.getEntity(), Matchers.is(listGameRayaMock));
 
     }
 
     @Test
     public void testFindByName_ko() throws SQLException, ClassNotFoundException {
 
-        when(gameSieteServiceMock.findGameByName(anyString())).thenReturn(null);
+        when(gameRayaServiceMock.findGameByName(anyString())).thenReturn(null);
 
-        Response response = gameSieteControllerInject.findByName(anyString());
+        Response response = gameRayaControllerInject.findGameByName(anyString());
 
         MatcherAssert.assertThat(response.getEntity(), Matchers.nullValue());
 
