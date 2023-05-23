@@ -1,27 +1,60 @@
 package edu.fpdual.controller;
 
 import edu.fpdual.api.dto.GameSiete;
+import edu.fpdual.persistence.connector.MySQLConnector;
+import edu.fpdual.persistence.manager.impl.GameSieteManagerImpl;
 import edu.fpdual.service.GameSieteService;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class GameSieteControllerTest {
 
+    @Mock
+    private GameSieteService gameSieteServiceMock;
+
+    @Mock
+    private MySQLConnector connectorMock;
+
+    @Mock
+    private GameSieteManagerImpl gameSieteManagerImplMock;
+
+    @Mock
+    private GameSiete gameSieteMock;
+
+    @Spy
+    private GameSieteController gameSieteControllerInject;
+
     @Before
     public void setUp() {
         MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    public void testInsertGame_ok() throws SQLException, ClassNotFoundException{
+
+        when(gameSieteServiceMock.insertGame(gameSieteMock)).thenReturn(1);
+
+        Response response = gameSieteControllerInject.insertGame(gameSieteMock);
+
+        MatcherAssert.assertThat(response.getStatus(), Matchers.is(201));
+
     }
 
     /*@Mock

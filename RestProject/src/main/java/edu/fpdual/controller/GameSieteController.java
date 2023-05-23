@@ -26,7 +26,14 @@ public class GameSieteController {
      * Servicio del siete y medio, que media entre el controlador y la
      * capa de peristencia.
      */
-    private GameSieteService service;
+    private GameSieteService gameSieteService;
+
+    /**
+     * Constructor de la clase, que inicializa el servicio
+     */
+    public GameSieteController() {
+        this.gameSieteService = new GameSieteService(new MySQLConnector(), new GameSieteManagerImpl());
+    }
 
     /**
      * Realiza una operación insert que introduce una partida en la BBDD.
@@ -43,8 +50,8 @@ public class GameSieteController {
     @Path("/insertGame")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response insertGame(GameSiete gameSiete) throws SQLException, ClassNotFoundException {
-        service = new GameSieteService(new MySQLConnector(), new GameSieteManagerImpl());
-        int result = service.insertGame(gameSiete);
+
+        int result = gameSieteService.insertGame(gameSiete);
         if (result > 0) {
             return Response.status(Response.Status.CREATED).build();
         } else {
@@ -67,8 +74,7 @@ public class GameSieteController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByName(@QueryParam("nickname") String nickname) throws SQLException, ClassNotFoundException {
 
-        service = new GameSieteService(new MySQLConnector(), new GameSieteManagerImpl());
-        List<GameSiete> listado = service.findGameByName(nickname);
+        List<GameSiete> listado = gameSieteService.findGameByName(nickname);
         return Response.ok().entity(listado)
                 .status(Response.Status.CREATED).build();
     }

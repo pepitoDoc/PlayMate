@@ -23,7 +23,14 @@ public class PlayerController {
      * Servicio del jugador, que media entre el controlador y la
      * capa de peristencia.
      */
-    private PlayerService service;
+    private PlayerService playerService;
+
+    /**
+     * Constructor de la clase, que inicializa el servicio
+     */
+    public PlayerController() {
+        this.playerService = new PlayerService(new MySQLConnector(), new PlayerManagerImpl());
+    }
 
     /**
      * Realiza una operación insert que registra un usuario en la BBDD.
@@ -41,8 +48,7 @@ public class PlayerController {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response insertPlayer(Player player) throws SQLException, ClassNotFoundException {
 
-        service = new PlayerService(new MySQLConnector(), new PlayerManagerImpl());
-        int result = service.insertPlayer(player);
+        int result = playerService.insertPlayer(player);
         if (result > 0) {
             return Response.status(Response.Status.CREATED).build();
         } else {
@@ -67,8 +73,7 @@ public class PlayerController {
             @QueryParam("nickname") String nickname, @QueryParam("email") String email)
             throws SQLException, ClassNotFoundException {
 
-        service = new PlayerService(new MySQLConnector(), new PlayerManagerImpl());
-        Player playerFound = service.findPlayer(nickname, email);
+        Player playerFound = playerService.findPlayer(nickname, email);
         return Response.ok().entity(playerFound).status(Response.Status.CREATED).build();
     }
 
@@ -88,8 +93,7 @@ public class PlayerController {
             @QueryParam("nickname") String nickname)
             throws SQLException, ClassNotFoundException {
 
-        service = new PlayerService(new MySQLConnector(), new PlayerManagerImpl());
-        Player playerFound = service.findPlayerByName(nickname);
+        Player playerFound = playerService.findPlayerByName(nickname);
         return Response.ok().entity(playerFound).status(Response.Status.CREATED).build();
     }
 
@@ -111,8 +115,7 @@ public class PlayerController {
     @Produces(MediaType.TEXT_PLAIN)
     public Response updatePassword(Player player) throws SQLException, ClassNotFoundException {
 
-        service = new PlayerService(new MySQLConnector(), new PlayerManagerImpl());
-        int result = service.updatePassword(player);
+        int result = playerService.updatePassword(player);
         if (result > 0) {
             return Response.status(Response.Status.CREATED).build();
         } else {

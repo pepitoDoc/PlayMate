@@ -25,7 +25,14 @@ public class GameRayaController {
      * Servicio del 4 en raya, que media entre el controlador y la
      * capa de peristencia.
      */
-    private GameRayaService service;
+    private GameRayaService gameRayaService;
+
+    /**
+     * Constructor de la clase, que inicializa el servicio
+     */
+    public GameRayaController() {
+        this.gameRayaService = new GameRayaService(new MySQLConnector(), new GameRayaManagerImpl());
+    }
 
     /**
      * Realiza una operación insert que introduce una partida en la BBDD.
@@ -42,8 +49,8 @@ public class GameRayaController {
     @Path("/insertGame")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response insertGame(GameRaya gameRaya) throws SQLException, ClassNotFoundException {
-        service = new GameRayaService(new MySQLConnector(), new GameRayaManagerImpl());
-        int result = service.insertGame(gameRaya);
+
+        int result = gameRayaService.insertGame(gameRaya);
         if (result > 0) {
             return Response.status(Response.Status.CREATED).build();
         } else {
@@ -66,8 +73,7 @@ public class GameRayaController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findGameByName(@QueryParam("nickname") String nickname) throws SQLException, ClassNotFoundException {
 
-        service = new GameRayaService(new MySQLConnector(), new GameRayaManagerImpl());
-        List<GameRaya> listado = service.findGameByName(nickname);
+        List<GameRaya> listado = gameRayaService.findGameByName(nickname);
         return Response.ok().entity(listado).status(Response.Status.CREATED).build();
     }
 
