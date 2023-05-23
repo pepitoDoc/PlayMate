@@ -20,43 +20,43 @@ import static org.mockito.Mockito.*;
 public class GameSieteManagerImplTest {
 
     @Mock
-    private Connection connection;
+    private Connection connectionMock;
 
     @Mock
-    private PreparedStatement preparedStatement;
+    private PreparedStatement preparedStatementMock;
 
     @Mock
-    private ResultSet result;
+    private ResultSet resultSetMock;
 
     @Mock
-    private java.sql.Date date;
+    private java.sql.Date dateMock;
 
     @Mock
-    private GameSiete gameSiete;
+    private GameSiete gameSieteMock;
 
     @InjectMocks
-    private GameSieteManagerImpl gameManager;
+    private GameSieteManagerImpl gameSieteManagerImplInject;
 
 
 
     @Test
     void testInsert_ok() throws SQLException {
 
-        when(connection.prepareStatement(anyString())).thenReturn(preparedStatement);
-        when(preparedStatement.executeUpdate()).thenReturn(1);
-        int result = gameManager.insert(connection, gameSiete);
+        when(connectionMock.prepareStatement(anyString())).thenReturn(preparedStatementMock);
+        when(preparedStatementMock.executeUpdate()).thenReturn(1);
 
-        verify(preparedStatement).executeUpdate();
+        int result = gameSieteManagerImplInject.insert(connectionMock, gameSieteMock);
 
+        verify(preparedStatementMock).executeUpdate();
         MatcherAssert.assertThat(result, Matchers.is(1));
     }
 
     @Test
     void testInsert_ko() throws SQLException {
 
-        when(connection.prepareStatement(anyString())).thenThrow(new SQLException(""));
+        when(connectionMock.prepareStatement(anyString())).thenThrow(new SQLException(""));
 
-        int result = gameManager.insert(connection, gameSiete);
+        int result = gameSieteManagerImplInject.insert(connectionMock, gameSieteMock);
 
         MatcherAssert.assertThat(result, Matchers.is(0));
 
@@ -77,12 +77,12 @@ public class GameSieteManagerImplTest {
                 .player1bet(2)
                 .player2bet(1.33f)
                 .player3bet(1)
-                .timestamp(date)
+                .timestamp(dateMock)
                 .build();
 
-        when(connection.prepareStatement(anyString())).thenReturn(preparedStatement);
-        when(preparedStatement.executeQuery()).thenReturn(result);
-        when(result.next()).thenAnswer(new Answer<Boolean>() {
+        when(connectionMock.prepareStatement(anyString())).thenReturn(preparedStatementMock);
+        when(preparedStatementMock.executeQuery()).thenReturn(resultSetMock);
+        when(resultSetMock.next()).thenAnswer(new Answer<Boolean>() {
 
             private int counter = 0;
 
@@ -97,7 +97,7 @@ public class GameSieteManagerImplTest {
             }
         });
 
-        when(result.getFloat(any())).thenAnswer(new Answer<Float>() {
+        when(resultSetMock.getFloat(any())).thenAnswer(new Answer<Float>() {
 
             @Override
             public Float answer(InvocationOnMock invocationOnMock) throws Throwable {
@@ -122,9 +122,9 @@ public class GameSieteManagerImplTest {
             }
         });
 
-        when(result.getDate("timestamp")).thenReturn(date);
+        when(resultSetMock.getDate("timestamp")).thenReturn(dateMock);
 
-        when(result.getString(any())).thenAnswer(new Answer<String>() {
+        when(resultSetMock.getString(any())).thenAnswer(new Answer<String>() {
 
             @Override
             public String answer(InvocationOnMock invocationOnMock) throws Throwable {
@@ -143,7 +143,7 @@ public class GameSieteManagerImplTest {
             }
         });
 
-        List<GameSiete> gameSietes = gameManager.findByName(connection, anyString());
+        List<GameSiete> gameSietes = gameSieteManagerImplInject.findByName(connectionMock, anyString());
 
         MatcherAssert.assertThat(gameSietes, Matchers.hasSize(1));
         MatcherAssert.assertThat(gameSietes.iterator().next(), Matchers.is(expectedGameSiete));
@@ -152,9 +152,11 @@ public class GameSieteManagerImplTest {
     @Test
     public void testFindByName_ko() throws SQLException {
 
-        when(connection.prepareStatement(anyString())).thenReturn(preparedStatement);
-        when(preparedStatement.executeQuery()).thenThrow(new SQLException("Mock SQLException"));
-        List<GameSiete> gameSieteError = gameManager.findByName(connection, anyString());
+        when(connectionMock.prepareStatement(anyString())).thenReturn(preparedStatementMock);
+        when(preparedStatementMock.executeQuery()).thenThrow(new SQLException("Mock SQLException"));
+
+        List<GameSiete> gameSieteError = gameSieteManagerImplInject.findByName(connectionMock, anyString());
+
         MatcherAssert.assertThat(gameSieteError, Matchers.nullValue());
 
     }

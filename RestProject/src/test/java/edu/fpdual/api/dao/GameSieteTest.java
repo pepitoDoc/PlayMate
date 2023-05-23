@@ -22,14 +22,14 @@ import static org.mockito.Mockito.when;
 public class GameSieteTest {
 
     @Mock
-    private ResultSet result;
+    private ResultSet resultSetMock;
 
     @Mock
-    private java.sql.Date date;
+    private java.sql.Date dateMock;
 
 
     @Test
-    void gameConstruction_ok() throws SQLException {
+    void testGameSieteConstruction_ok() throws SQLException {
 
         GameSiete expectedGameSiete = GameSiete.builder()
                 .player1("Alvaro")
@@ -43,10 +43,10 @@ public class GameSieteTest {
                 .player1bet(2)
                 .player2bet(1.33f)
                 .player3bet(1)
-                .timestamp(date)
+                .timestamp(dateMock)
                 .build();
 
-        when(result.getFloat(any())).thenAnswer(new Answer<Float>() {
+        when(resultSetMock.getFloat(any())).thenAnswer(new Answer<Float>() {
 
             @Override
             public Float answer(InvocationOnMock invocationOnMock) throws Throwable {
@@ -71,8 +71,8 @@ public class GameSieteTest {
             }
         });
 
-        when(result.getDate("timestamp")).thenReturn(date);
-        when(result.getString(any())).thenAnswer(new Answer<String>() {
+        when(resultSetMock.getDate("timestamp")).thenReturn(dateMock);
+        when(resultSetMock.getString(any())).thenAnswer(new Answer<String>() {
 
             @Override
             public String answer(InvocationOnMock invocationOnMock) throws Throwable {
@@ -91,18 +91,18 @@ public class GameSieteTest {
             }
         });
 
-        GameSiete actualGameSiete = new GameSiete(result);
+        GameSiete actualGameSiete = new GameSiete(resultSetMock);
 
         MatcherAssert.assertThat(actualGameSiete, Matchers.is(expectedGameSiete));
 
     }
 
     @Test
-    void gameConstruction_ko() throws SQLException {
+    void testGameSieteConstruction_ko() throws SQLException {
 
-        when(result.getString("player1")).thenThrow(new SQLException("Mock SQLException"));
+        when(resultSetMock.getString("player1")).thenThrow(new SQLException("Mock SQLException"));
 
-        assertThrows(RuntimeException.class, () -> new GameSiete(result));
+        assertThrows(RuntimeException.class, () -> new GameSiete(resultSetMock));
 
     }
 

@@ -24,35 +24,35 @@ public class PlayerServiceTest {
     private MySQLConnector connectorMock;
 
     @Mock
-    private PlayerManagerImpl playerManagerMock;
+    private PlayerManagerImpl playerManagerImplMock;
 
     @Mock
     private Player playerMock;
 
     @Mock
-    private Connection connection;
+    private Connection connectionMock;
 
     @InjectMocks
-    private PlayerService playerServiceMock;
+    private PlayerService playerServiceInject;
 
     @Test
-    public void playerServiceConstruction_ok() {
+    public void testPlayerServiceConstruction_ok() {
 
-        PlayerService serviceMock = new PlayerService(connectorMock, playerManagerMock);
+        PlayerService serviceMock = new PlayerService(connectorMock, playerManagerImplMock);
         MatcherAssert.assertThat(connectorMock, Matchers.is(serviceMock.getConnector()));
-        MatcherAssert.assertThat(playerManagerMock, Matchers.is(serviceMock.getManager()));
+        MatcherAssert.assertThat(playerManagerImplMock, Matchers.is(serviceMock.getManager()));
 
     }
 
     @Test
     public void testInsertPlayer_ok() throws SQLException, ClassNotFoundException {
 
-        when(connectorMock.getMySQLConnection()).thenReturn(connection);
-        when(playerManagerMock.insert(connection, playerMock)).thenReturn(1);
+        when(connectorMock.getMySQLConnection()).thenReturn(connectionMock);
+        when(playerManagerImplMock.insert(connectionMock, playerMock)).thenReturn(1);
 
-        int result = playerServiceMock.insertPlayer(playerMock);
+        int result = playerServiceInject.insertPlayer(playerMock);
 
-        verify(connection).close();
+        verify(connectionMock).close();
         MatcherAssert.assertThat(result, Matchers.is(1));
 
     }
@@ -60,12 +60,12 @@ public class PlayerServiceTest {
     @Test
     public void testFindPlayerByName_ok() throws SQLException, ClassNotFoundException {
 
-        when(connectorMock.getMySQLConnection()).thenReturn(connection);
-        when(playerManagerMock.findPlayerByName(connection, "")).thenReturn(playerMock);
+        when(connectorMock.getMySQLConnection()).thenReturn(connectionMock);
+        when(playerManagerImplMock.findPlayerByName(connectionMock, "")).thenReturn(playerMock);
 
-        Player playerFound = playerServiceMock.findPlayerByName("");
+        Player playerFound = playerServiceInject.findPlayerByName("");
 
-        verify(connection).close();
+        verify(connectionMock).close();
         MatcherAssert.assertThat(playerFound, Matchers.is(playerMock));
 
     }
@@ -73,12 +73,12 @@ public class PlayerServiceTest {
     @Test
     public void testFindPlayer_ok() throws SQLException, ClassNotFoundException {
 
-        when(connectorMock.getMySQLConnection()).thenReturn(connection);
-        when(playerManagerMock.findPlayer(connection, "", "")).thenReturn(playerMock);
+        when(connectorMock.getMySQLConnection()).thenReturn(connectionMock);
+        when(playerManagerImplMock.findPlayer(connectionMock, "", "")).thenReturn(playerMock);
 
-        Player playerFound = playerServiceMock.findPlayer("", "");
+        Player playerFound = playerServiceInject.findPlayer("", "");
 
-        verify(connection).close();
+        verify(connectionMock).close();
         MatcherAssert.assertThat(playerFound, Matchers.is(playerMock));
 
     }
@@ -86,12 +86,12 @@ public class PlayerServiceTest {
     @Test
     public void testUpdatePassword_ok() throws SQLException, ClassNotFoundException {
 
-        when(connectorMock.getMySQLConnection()).thenReturn(connection);
-        when(playerManagerMock.updatePassword(connection, playerMock)).thenReturn(1);
+        when(connectorMock.getMySQLConnection()).thenReturn(connectionMock);
+        when(playerManagerImplMock.updatePassword(connectionMock, playerMock)).thenReturn(1);
 
-        int result = playerServiceMock.updatePassword(playerMock);
+        int result = playerServiceInject.updatePassword(playerMock);
 
-        verify(connection).close();
+        verify(connectionMock).close();
         MatcherAssert.assertThat(result, Matchers.is(1));
 
     }

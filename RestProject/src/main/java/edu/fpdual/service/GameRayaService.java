@@ -3,6 +3,7 @@ package edu.fpdual.service;
 import edu.fpdual.api.dto.GameRaya;
 import edu.fpdual.persistence.connector.MySQLConnector;
 import edu.fpdual.persistence.manager.impl.GameRayaManagerImpl;
+import lombok.Getter;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -15,6 +16,7 @@ import java.util.List;
  * y se encarga de ejecutar los métodos SQL de persistencia, haciendo de capa
  * intermedia entre esta y su controlador pertinente.
  */
+@Getter
 public class GameRayaService {
 
     /**

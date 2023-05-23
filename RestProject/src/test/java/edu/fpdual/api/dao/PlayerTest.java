@@ -22,10 +22,10 @@ import static org.mockito.Mockito.when;
 public class PlayerTest {
 
     @Mock
-    private ResultSet result;
+    private ResultSet resultSetMock;
 
     @Test
-    public void playerConstruction_ok() throws SQLException {
+    public void testPlayerConstruction_ok() throws SQLException {
 
         Player expectedPlayer = Player.builder()
                 .nickname("Pepe")
@@ -33,7 +33,7 @@ public class PlayerTest {
                 .email("paco@gmail.com")
                 .build();
 
-        when(result.getString(anyString())).thenAnswer(new Answer<String>() {
+        when(resultSetMock.getString(anyString())).thenAnswer(new Answer<String>() {
 
            @Override
            public String answer(InvocationOnMock invocationOnMock) {
@@ -50,16 +50,16 @@ public class PlayerTest {
            }
         });
 
-        Player actualPlayer = new Player(result);
+        Player actualPlayer = new Player(resultSetMock);
         MatcherAssert.assertThat(actualPlayer, Matchers.is(actualPlayer));
     }
 
     @Test
-    void gameConstruction_ko() throws SQLException {
+    void testPlayerConstruction_ko() throws SQLException {
 
-        when(result.getString("nickname")).thenThrow(new SQLException("Mock SQLException"));
+        when(resultSetMock.getString("nickname")).thenThrow(new SQLException("Mock SQLException"));
 
-        assertThrows(RuntimeException.class, () -> new Player(result));
+        assertThrows(RuntimeException.class, () -> new Player(resultSetMock));
 
     }
 }

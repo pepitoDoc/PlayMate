@@ -1,8 +1,9 @@
 package edu.fpdual.service;
 
+import edu.fpdual.api.dto.GameRaya;
 import edu.fpdual.api.dto.GameSiete;
 import edu.fpdual.persistence.connector.MySQLConnector;
-import edu.fpdual.persistence.manager.impl.GameSieteManagerImpl;
+import edu.fpdual.persistence.manager.impl.GameRayaManagerImpl;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -15,35 +16,36 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class GameSieteServiceTest {
+public class GameRayaServiceTest {
 
     @Mock
     private MySQLConnector connectorMock;
 
     @Mock
-    private GameSieteManagerImpl gameSieteMangerImplMock;
-
-    @Mock
-    private GameSiete gameSieteMock;
-
-    @Mock
-    private List<GameSiete> listGameSieteMock;
-
-    @Mock
     private Connection connectionMock;
 
+    @Mock
+    private GameRaya gameRayaMock;
+
+    @Mock
+    private List<GameRaya> listGameRayaMock;
+
+    @Mock
+    private GameRayaManagerImpl gameRayaManagerImplMock;
+
     @InjectMocks
-    private GameSieteService gameSieteServiceInject;
+    private GameRayaService gameRayaServiceInject;
 
     @Test
-    public void testGameSieteServiceConstruction_ok() {
+    public void testGameRayaServiceConstruction_ok() {
 
-        GameSieteService serviceMock = new GameSieteService(connectorMock, gameSieteMangerImplMock);
+        GameRayaService serviceMock = new GameRayaService(connectorMock, gameRayaManagerImplMock);
         MatcherAssert.assertThat(connectorMock, Matchers.is(serviceMock.getConnector()));
-        MatcherAssert.assertThat(gameSieteMangerImplMock, Matchers.is(serviceMock.getManager()));
+        MatcherAssert.assertThat(gameRayaManagerImplMock, Matchers.is(serviceMock.getManager()));
 
     }
 
@@ -51,9 +53,9 @@ public class GameSieteServiceTest {
     public void testInsertGame_ok() throws SQLException, ClassNotFoundException {
 
         when(connectorMock.getMySQLConnection()).thenReturn(connectionMock);
-        when(gameSieteMangerImplMock.insert(connectionMock, gameSieteMock)).thenReturn(1);
+        when(gameRayaManagerImplMock.insert(connectionMock, gameRayaMock)).thenReturn(1);
 
-        int result = gameSieteServiceInject.insertGame(gameSieteMock);
+        int result = gameRayaServiceInject.insertGame(gameRayaMock);
 
         verify(connectionMock).close();
         MatcherAssert.assertThat(result, Matchers.is(1));
@@ -64,12 +66,12 @@ public class GameSieteServiceTest {
     public void testFindByName_ok() throws SQLException, ClassNotFoundException{
 
         when(connectorMock.getMySQLConnection()).thenReturn(connectionMock);
-        when(gameSieteMangerImplMock.findByName(connectionMock, "")).thenReturn(listGameSieteMock);
+        when(gameRayaManagerImplMock.findByName(connectionMock, "")).thenReturn(listGameRayaMock);
 
-        List<GameSiete> gameSietes = gameSieteServiceInject.findGameByName("");
+        List<GameRaya> gameRayas = gameRayaServiceInject.findGameByName("");
 
         verify(connectionMock).close();
-        MatcherAssert.assertThat(gameSietes, Matchers.is(listGameSieteMock));
+        MatcherAssert.assertThat(gameRayas, Matchers.is(listGameRayaMock));
 
     }
 

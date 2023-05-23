@@ -31,20 +31,20 @@ public class PlayerManagerImplTest {
     private PreparedStatement preparedStatementMock;
 
     @Mock
-    private ResultSet resultMock;
+    private ResultSet resultSetMock;
 
     @Mock
     private Player playerMock;
 
     @InjectMocks
-    private PlayerManagerImpl playerManagerMock;
+    private PlayerManagerImpl playerManagerImplInject;
 
     @Test
     void testInsert_ok() throws SQLException {
 
         when(connectionMock.prepareStatement(anyString())).thenReturn(preparedStatementMock);
         when(preparedStatementMock.executeUpdate()).thenReturn(1);
-        int result = playerManagerMock.insert(connectionMock, playerMock);
+        int result = playerManagerImplInject.insert(connectionMock, playerMock);
 
         verify(preparedStatementMock).executeUpdate();
 
@@ -56,7 +56,7 @@ public class PlayerManagerImplTest {
 
         when(connectionMock.prepareStatement(anyString())).thenThrow(new SQLException(""));
 
-        int result = playerManagerMock.insert(connectionMock,playerMock);
+        int result = playerManagerImplInject.insert(connectionMock,playerMock);
 
         MatcherAssert.assertThat(result, Matchers.is(0));
 
@@ -72,8 +72,8 @@ public class PlayerManagerImplTest {
                 .build();
 
         when(connectionMock.prepareStatement(anyString())).thenReturn(preparedStatementMock);
-        when(preparedStatementMock.executeQuery()).thenReturn(resultMock);
-        when(resultMock.next()).thenAnswer(new Answer<Boolean>() {
+        when(preparedStatementMock.executeQuery()).thenReturn(resultSetMock);
+        when(resultSetMock.next()).thenAnswer(new Answer<Boolean>() {
 
             private int counter = 0;
 
@@ -88,7 +88,7 @@ public class PlayerManagerImplTest {
             }
         });
 
-        when(resultMock.getString(anyString())).thenAnswer(new Answer<String>() {
+        when(resultSetMock.getString(anyString())).thenAnswer(new Answer<String>() {
 
             @Override
             public String answer(InvocationOnMock invocationOnMock) {
@@ -105,7 +105,7 @@ public class PlayerManagerImplTest {
             }
         });
 
-        Player playerFound = playerManagerMock.findPlayerByName(connectionMock, anyString());
+        Player playerFound = playerManagerImplInject.findPlayerByName(connectionMock, anyString());
 
         MatcherAssert.assertThat(playerFound, Matchers.is(expectedPlayer));
 
@@ -116,7 +116,7 @@ public class PlayerManagerImplTest {
 
         when(connectionMock.prepareStatement(anyString())).thenReturn(preparedStatementMock);
         when(preparedStatementMock.executeQuery()).thenThrow(new SQLException("Mock SQLException"));
-        Player playerError = playerManagerMock.findPlayerByName(connectionMock, anyString());
+        Player playerError = playerManagerImplInject.findPlayerByName(connectionMock, anyString());
         MatcherAssert.assertThat(playerError, Matchers.nullValue());
 
     }
@@ -131,8 +131,8 @@ public class PlayerManagerImplTest {
                 .build();
 
         when(connectionMock.prepareStatement(anyString())).thenReturn(preparedStatementMock);
-        when(preparedStatementMock.executeQuery()).thenReturn(resultMock);
-        when(resultMock.next()).thenAnswer(new Answer<Boolean>() {
+        when(preparedStatementMock.executeQuery()).thenReturn(resultSetMock);
+        when(resultSetMock.next()).thenAnswer(new Answer<Boolean>() {
 
             private int counter = 0;
 
@@ -147,7 +147,7 @@ public class PlayerManagerImplTest {
             }
         });
 
-        when(resultMock.getString(anyString())).thenAnswer(new Answer<String>() {
+        when(resultSetMock.getString(anyString())).thenAnswer(new Answer<String>() {
 
             @Override
             public String answer(InvocationOnMock invocationOnMock) {
@@ -164,7 +164,7 @@ public class PlayerManagerImplTest {
             }
         });
 
-        Player playerFound = playerManagerMock.findPlayer(connectionMock, "anyString()", "anyString()");
+        Player playerFound = playerManagerImplInject.findPlayer(connectionMock, "anyString()", "anyString()");
 
         MatcherAssert.assertThat(playerFound, Matchers.is(expectedPlayer));
 
@@ -175,7 +175,7 @@ public class PlayerManagerImplTest {
 
         when(connectionMock.prepareStatement(anyString())).thenReturn(preparedStatementMock);
         when(preparedStatementMock.executeQuery()).thenThrow(new SQLException("Mock SQLException"));
-        Player playerError = playerManagerMock.findPlayer(connectionMock, "anyString()", "anyString()");
+        Player playerError = playerManagerImplInject.findPlayer(connectionMock, "anyString()", "anyString()");
         MatcherAssert.assertThat(playerError, Matchers.nullValue());
 
     }
@@ -185,7 +185,7 @@ public class PlayerManagerImplTest {
 
         when(connectionMock.prepareStatement(anyString())).thenReturn(preparedStatementMock);
         when(preparedStatementMock.executeUpdate()).thenReturn(1);
-        int result = playerManagerMock.updatePassword(connectionMock, playerMock);
+        int result = playerManagerImplInject.updatePassword(connectionMock, playerMock);
 
         verify(preparedStatementMock).executeUpdate();
 
@@ -197,7 +197,7 @@ public class PlayerManagerImplTest {
 
         when(connectionMock.prepareStatement(anyString())).thenThrow(new SQLException(""));
 
-        int result = playerManagerMock.updatePassword(connectionMock,playerMock);
+        int result = playerManagerImplInject.updatePassword(connectionMock,playerMock);
 
         MatcherAssert.assertThat(result, Matchers.is(0));
     }

@@ -3,6 +3,7 @@ package edu.fpdual.service;
 import edu.fpdual.api.dto.Player;
 import edu.fpdual.persistence.connector.MySQLConnector;
 import edu.fpdual.persistence.manager.impl.PlayerManagerImpl;
+import lombok.Getter;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -14,6 +15,7 @@ import java.sql.SQLException;
  * y se encarga de ejecutar los métodos SQL de persistencia, haciendo de capa
  * intermedia entre esta y su controlador pertinente.
  */
+@Getter
 public class PlayerService {
 
     /**

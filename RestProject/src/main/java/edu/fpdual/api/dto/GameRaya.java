@@ -30,10 +30,10 @@ public class GameRaya {
      */
     public GameRaya(ResultSet resultSet) {
         try {
-            this.player1 = resultSet.getString(("player1"));
-            this.player2 = resultSet.getString(("player2"));
-            this.winner = resultSet.getString(("winner"));
-            this.date = resultSet.getString(("date"));
+            this.player1 = resultSet.getString("player1");
+            this.player2 = resultSet.getString("player2");
+            this.winner = resultSet.getString("winner");
+            this.date = resultSet.getString("date");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
