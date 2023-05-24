@@ -124,15 +124,9 @@ public class PlayerController {
     }
 
     /**
-<<<<<<< HEAD
-     * Realiza una operación delete que elimina a un jugador de la BBDD.
-     *
-     * @param player - Player - Jugador a eliminar
-=======
      * Realiza una operación delete que elimina a un usuario
      *
      * @param player - Player - Objeto jugador a borrar
->>>>>>> 1d2b42e3569bfc7978e0632bd342413cccb66514
      * @return <u>
      * <li>Response.status(Response.Status.CREATED) - Operación exitosa</li>
      * <li>Response.serverError() - Operación fallida</li>
