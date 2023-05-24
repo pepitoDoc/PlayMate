@@ -19,12 +19,11 @@ import java.util.List;
 public class PDFSiete extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         try {
             ObjectMapper mapper = new ObjectMapper();
             List<GameSiete> listaPartidas = mapper.readValue(req.getReader(), new TypeReference<List<GameSiete>>(){});
-
             new PdfItext().createPDF("PartidasSieteMedio", "Resultados de búsqueda para el usuario: a fecha: ", listaPartidas);
         } catch (Exception e) {
             e.printStackTrace();
