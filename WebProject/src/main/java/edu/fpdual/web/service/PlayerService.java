@@ -34,9 +34,9 @@ public class PlayerService {
         if(result.equals("1")){
             Response response = this.playerClient.deletePlayer(player);
             if(response.getStatus() == 201){
-                return "1";
+                result = "1";
             }else{
-                return "0";
+                result = "0";
             }
         }
 
