@@ -1,7 +1,8 @@
-const apuestas = JSON.parse(sessionStorage.getItem("apuestas"));
-const resultadoPartida = JSON.parse(sessionStorage.getItem("resultadoPartida"));
-const nombresJugadores = JSON.parse(sessionStorage.getItem("nombres"));
+const apuestas = JSON.parse(sessionStorage.getItem("apuestas")); // Retrieve 'apuestas' data from session storage and parse it as JSON
+const resultadoPartida = JSON.parse(sessionStorage.getItem("resultadoPartida")); // Retrieve 'resultadoPartida' data from session storage and parse it as JSON
+const nombresJugadores = JSON.parse(sessionStorage.getItem("nombres")); // Retrieve 'nombres' data from session storage and parse it as JSON
 
+// Create an object with the data to be sent
 const dataSend = {
   player1: nombresJugadores[0],
   player2: nombresJugadores[1],
@@ -112,8 +113,8 @@ function resolucion() {
           -Tiene menos o igual de 7.5 y la banca saca más de 7.5
           -Tiene más que la banca, siempre que el jugador tenga menos de 7.5
         Aparte, si gana con un 7.5 se indicará
-        */
-
+      */
+      
       if (puntosJugador > 7.5) {
         td5.textContent = "Pierde";
       } else if (puntosJugador < puntosBanca && puntosBanca <= 7.5) {
@@ -178,4 +179,4 @@ function resolucion() {
     document.body.appendChild(divContainer);
 
     sessionStorage.clear();
-  }
+}

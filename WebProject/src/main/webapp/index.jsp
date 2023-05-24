@@ -19,15 +19,18 @@
 
   <body>
     <section>
-      <nav class="navbar sticky-top sticky-navbar">
+      <!-- Navigation bar -->
+      <nav class="navbar sticky-top navbar sticky-navbar">
         <div class="container">
-          <a class="navbar-brand me-5" href="#">
+          <!-- Brand logo and name -->
+          <a class="navbar-brand me-5" href="index.jsp">
             <img src="resources/logoPlayMate.png" alt="" width="100" height="100" class="d-inline-block">
             <span class="fs-5 fw-bold">Play</span><span class="fw-bold fs-5"
               style="color: hsl(219, 100%, 50%)">MATE</span>
           </a>
           <div class="justify-content-center">
             <ul class="nav nav-pills">
+              <!-- Dropdown menu for user-related actions -->
               <li class="nav-item dropdown me-5">
                 <a class="nav-link dropdown-toggle fw-bold" data-bs-toggle="dropdown" href="#" role="button"
                   aria-expanded="false"><i class="fa-solid fa-user fa-xl" style="color: #005eff;"></i>
@@ -42,6 +45,7 @@
                   <li><a class="dropdown-item" href="player/borrar/borrar.jsp">Eliminar usuario</a></li>
                 </ul>
               </li>
+              <!-- Dropdown menu for game options -->
               <li class="nav-item dropdown me-5 fw-bold">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                   aria-expanded="false"><i class="fa-solid fa-gamepad fa-xl" style="color: #005eff;"></i> Juegos</a>
@@ -50,6 +54,7 @@
                   <li><a class="dropdown-item" href="cuatroRaya/juego/juego.jsp">Cuatro en raya</a></li>
                 </ul>
               </li>
+              <!-- Dropdown menu for searching and ranking options -->
               <li class="nav-item dropdown me-5 fw-bold">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                   aria-expanded="false"><i class="fa-solid fa-magnifying-glass" style="color: #005eff;"></i> Buscar
@@ -69,16 +74,14 @@
           </div>
         </div> <!-- Close the navbar-collapse div here -->
       </nav>
-    </section>
-    <section class="section2">
-      <div class="container">
-
+      <div class="container mainSection">
         <div class="welcomeText text-center my-5">
           <h1>Bienvenido a PlayMATE</h1>
           <p>Donde la diversión no tiene edad</p>
         </div>
 
         <div class="row row-cols-1 row-cols-md-3 g-4">
+          <!-- Card for game "Siete y medio" -->
           <div class="col">
             <div class="card">
               <img src="resources/sieteymedioIMG.png" class="card-img-top" alt="sieteMedio">
@@ -92,6 +95,7 @@
               </div>
             </div>
           </div>
+          <!-- Card for game "Cuatro en raya" -->
           <div class="col">
             <div class="card">
               <img src="resources/4rayaIMG.png" class="card-img-top" alt="4raya">
@@ -104,9 +108,10 @@
               </div>
             </div>
           </div>
+          <!-- Card for upcoming games -->
           <div class="col">
             <div class="card">
-              <img src="resources/moreGames.jpg" class="card-img-top" alt="masJuegos">
+              <img src="resources/moreGames.jpeg" class="card-img-top" alt="masJuegos">
               <div class="card-body">
                 <h5 class="card-title text-center">Nuevos juegos pronto!</h5>
                 <p class="card-text">Nuestra página aún está en desarollo y pronto tendrá nuevos juegos y herramientas
@@ -119,8 +124,13 @@
         <div class="lastLine my-5">
 
         </div>
+      </div>
+
+
     </section>
+    <!-- Link to custom JavaScript file -->
     <script src="index.js"></script>
+    <!-- Bootstrap and Popper.js scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
       integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
       crossorigin="anonymous"></script>

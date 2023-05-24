@@ -143,12 +143,14 @@ function changeDiv() {
 }
 
 
-
+// Event listener for the "DOMContentLoaded" event
 window.addEventListener("DOMContentLoaded", () => {
     const inputEmail = document.querySelector("#email");
     const checkEmail = document.querySelector("#checkEmail");
     checkEmail.addEventListener("click", () => {
         email = inputEmail.value;
+
+        // Send a GET request to check the email
         fetch("http://localhost:8080/WebProject/solicitud-contrasena?email=" + email, {
             method: "GET"
         })
@@ -163,10 +165,15 @@ window.addEventListener("DOMContentLoaded", () => {
             if (data == "0") {
                 alert("No se ha encontrado un usuario con ese correo");
             } else if (data == "1") {
+                // Replace the "user" div with the "verify" div
                 const divUser = document.querySelector("#user");
                 divUser.replaceWith(verifyDiv());
+
                 const divVerify = document.querySelector("#verify");
+
+                // Event listener for the "checkCode" button inside the "verify" div
                 divVerify.querySelector("#checkCode").addEventListener("click", () => {
+                    // Send a POST request to check the verification code
                     fetch("http://localhost:8080/WebProject/solicitud-contrasena", {
                         method: 'POST',
                         headers: {
@@ -186,10 +193,15 @@ window.addEventListener("DOMContentLoaded", () => {
                     })
                     .then(data => {
                         if (data == "1") {
+                            // Replace the "verify" div with the "change" div
                             const divVerify = document.querySelector("#verify");
                             divVerify.replaceWith(changeDiv());
+
                             const divChange = document.querySelector("#change");
+
+                            // Event listener for the "changePassword" button inside the "change" div
                             divChange.querySelector("#changePassword").addEventListener("click", () => {
+                                // Send a POST request to change the password
                                 fetch("http://localhost:8080/WebProject/cambiar-contrasena", {
                                     method: "POST",
                                     headers: {

@@ -131,6 +131,14 @@ public class PlayerService {
 
     }
 
+    /**
+     * Realiza una operación delete que elimina a un jugador de la BBDD.
+     *
+     * @param player - Player - Jugador a eliminar
+     * @return int - Resultado de la operación
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public int deletePlayer(Player player) throws SQLException, ClassNotFoundException {
 
         Connection con = null;

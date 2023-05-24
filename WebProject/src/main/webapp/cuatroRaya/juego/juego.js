@@ -48,10 +48,12 @@ for (let rowCounter = 0; rowCounter < 6; rowCounter++) {
             divRowsCols.classList.add('cell', 'row-' + rowCounter, 'col-' + colCounter);
         }
 
+        // Adds appropriate classes based on the position in the grid to create a border effect
         gameBoardDiv.appendChild(divRowsCols);
     }
 }
 
+// Create all elements to store or use in the future
 const allCells = document.querySelectorAll('.cell:not(.row-top)');
 const topCells = document.querySelectorAll('.cell.row-top');
 const resetButton = document.querySelector('.reset');
@@ -73,6 +75,7 @@ for (let colCounter = 0; colCounter < 7; colCounter++) {
         column.push(allCells[rowCounter * 7 + colCounter]);
     }
 
+    // Pushes cells into the column array
     column.push(topCells[colCounter]);
     columns.push(column);
 }
@@ -85,6 +88,7 @@ for (let rowCounter = 0; rowCounter < 6; rowCounter++) {
         row.push(allCells[rowCounter * 7 + colCounter]);
     }
 
+    // Pushes cells into the row array
     rows.push(row);
 
 }
@@ -114,11 +118,14 @@ window.addEventListener(
 
 
         // Functions
+
+        // Get an array of class names from a cell element
         const getClassListArray = (cell) => {
             const classList = cell.classList;
             return [...classList];
         };
 
+        // Get the row and column location of a cell element
         const getCellLocation = (cell) => {
             const classList = getClassListArray(cell);
 
@@ -132,6 +139,7 @@ window.addEventListener(
             return [rowNumber, colNumber];
         };
 
+        // Get the first open cell in a column
         const getFirstOpenCellForColumn = (colIndex) => {
             const column = columns[colIndex];
             const columnWithoutTop = column.slice(0, 6).reverse(); // Reverse the column to start from the bottom
@@ -143,31 +151,30 @@ window.addEventListener(
                 }
             }
 
-
             return null;
         };
 
+        // Clear the color from the top cell in a column
         const clearColorFromTop = (colIndex) => {
             const topCell = topCells[colIndex];
             topCell.classList.remove('yellow');
             topCell.classList.remove('red');
         };
 
+        // Get the color of a cell
         const getColorOfCell = (cell) => {
             const classList = getClassListArray(cell);
             if (classList.includes('yellow')) {
-
                 return 'yellow';
             }
             if (classList.includes('red')) {
-
                 return 'red';
             }
 
             return null;
-
         };
 
+        // Check if the given cells form a winning combination
         const checkWinningCells = (cells) => {
             if (cells.length < 4) return false;
 
@@ -175,7 +182,7 @@ window.addEventListener(
             for (const cell of cells) {
                 cell.classList.add('win');
             }
-            statusSpan.textContent = `${yellowIsNext ? names[0] : names[1]} ha ganado el partido!`
+            statusSpan.textContent = `${yellowIsNext ? names[0] : names[1]} ha ganado el partido!`;
 
             winnerName = `${yellowIsNext ? names[0] : names[1]}`;
             if (winnerName == names[0]) {
@@ -190,15 +197,19 @@ window.addEventListener(
                 winner: winnerName + " " + winnerColor,
                 date: currentDate
             };
+
+            // Fetch the session endpoint
             fetch("http://localhost:8080/WebProject/raya-sesion", {
                 method: "GET"
-              })
-              .then(response => {
-                console.log("illo");
-              })
-              .catch(error => {
-                console.log(error);
-              })
+            })
+                .then(response => {
+                    console.log("illo");
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+
+            // Send the game data to the server
             fetch('http://localhost:8080/WebProject/register-game-raya', {
                 method: 'POST',
                 headers: {
@@ -362,6 +373,8 @@ window.addEventListener(
 
 
         // Event Handlers
+
+        // Handler for cell mouseover event
         const handleCellMouseOver = (e) => {
             if (!gameIsLive) return;
             const cell = e.target;
@@ -371,12 +384,14 @@ window.addEventListener(
             topCell.classList.add(yellowIsNext ? 'yellow' : 'red');
         };
 
+        // Handler for cell mouseout event
         const handleCellMouseOut = (e) => {
             const cell = e.target;
             const [rowIndex, colIndex] = getCellLocation(cell);
             clearColorFromTop(colIndex);
         };
 
+        // Handler for cell click event
         const handleCellClick = (event) => {
             if (names.length == 2) {
                 if (!gameIsLive) return;
@@ -393,7 +408,6 @@ window.addEventListener(
                 const winningCells = checkStatusOfGame(openCell);
 
                 if (winningCells) {
-
                     gameIsLive = false;
                     return;
                 }
@@ -403,12 +417,13 @@ window.addEventListener(
                 yellowIsNext = !yellowIsNext;
                 updateTurnIndicator();
             } else {
-                window.alert('Tienen que participar 2 usuarios mínimo!')
+                window.alert('Tienen que participar 2 usuarios mínimo!');
             }
         };
 
-
         // Adding Event Listeners
+
+        // Add event listeners to each cell
         for (const row of rows) {
             for (const cell of row) {
                 cell.addEventListener('mouseover', handleCellMouseOver);
@@ -417,7 +432,9 @@ window.addEventListener(
             }
         }
 
+        // Add event listener to the reset button
         resetButton.addEventListener('click', () => {
+            // Reset the game board
             for (const row of rows) {
                 for (const cell of row) {
                     cell.classList.remove('red');
@@ -433,9 +450,9 @@ window.addEventListener(
             statusSpan.textContent = '';
         });
 
-
-
+        // Handle identify buttons and input fields
         for (let i = 0; i < identifyButtons.length; i++) {
+            // Add event listener for identify button click
             identifyButtons[i].addEventListener('click', () => {
                 const userCard = document.querySelector('#user' + (i + 1));
 
@@ -449,6 +466,7 @@ window.addEventListener(
                 fieldName.placeholder = 'Nombre';
                 inputNameArr.push(fieldName);
 
+                // Create input field for password
                 const fieldPass = document.createElement('input');
                 fieldPass.type = 'password';
                 fieldPass.className = 'form-control';
@@ -467,26 +485,26 @@ window.addEventListener(
                 userCard.appendChild(confirmButton);
                 userCard.appendChild(backButton);
 
+                // Handle back button click
                 backButton.addEventListener('click', () => {
                     inputsContainer.remove();
                     confirmButton.remove();
                     backButton.remove();
                     newPlayerButtons[i].style.display = 'initial';
                     identifyButtons[i].style.display = 'initial';
-
                 });
 
                 newPlayerButtons[i].style.display = 'none';
                 identifyButtons[i].style.display = 'none';
 
+                // Check if user name display exists
                 if (typeof (document.querySelector('#nameUser' + (i + 1))) != 'undefined' && document.querySelector('#nameUser' + (i + 1)) != null) {
                 } else {
                     document.querySelector('.textPlayer' + (i + 1)).remove();
                 }
                 cancelNewPlayerButtons[i].style.display = 'none';
 
-
-
+                // Handle confirm button click
                 confirmButton.addEventListener('click', () => {
                     checkNamePassUser(fieldName.value, fieldPass.value, confirmButton, inputNameArr);
                 });
@@ -543,7 +561,9 @@ window.addEventListener(
             }
         }
 
+        // Handle new player buttons and cancel buttons
         for (let i = 0; i < newPlayerButtons.length; i++) {
+            // Handle new player button click
             newPlayerButtons[i].addEventListener('click', () => {
                 const textPlayer = document.createElement('span');
                 textPlayer.setAttribute('class', 'textPlayer' + (i + 1));
@@ -560,6 +580,7 @@ window.addEventListener(
                 }
             });
 
+            // Handle cancel button click
             cancelNewPlayerButtons[i].addEventListener('click', () => {
                 if (typeof (document.querySelector('#nameUser' + (i + 1))) != 'undefined' && document.querySelector('#nameUser' + (i + 1)) != null) {
                     document.querySelector('.textPlayer' + (i + 1)).remove();
@@ -572,21 +593,23 @@ window.addEventListener(
             });
         }
 
+        // Handle result button click
         document.querySelector('.btn-result').addEventListener('click', () => {
             if (gamesPlayed.length > 0) {
                 sessionStorage.setItem("gamesPlayed", JSON.stringify(gamesPlayed));
-                window.location.replace("../resolucion/resolucion.jsp")
+                window.location.replace("../resolucion/resolucion.jsp");
             } else {
-                window.alert('No se ha jugado ningun partido aún!')
+                window.alert('No se ha jugado ningun partido aún!');
             }
-
         });
 
+        // Function to check if a parent contains a child element
         function contains(parent, child) {
             return parent !== child && parent.contains(child);
         }
 
+        // Handle back button click
         document.querySelector('.btn-back').addEventListener('click', () => {
-            window.location.replace("http://localhost:8080/WebProject/index.jsp")
+            window.location.replace("http://localhost:8080/WebProject/index.jsp");
         });
     });

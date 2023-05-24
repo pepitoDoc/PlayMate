@@ -124,6 +124,17 @@ public class PlayerController {
 
     }
 
+    /**
+     * Realiza una operación delete que elimina a un jugador de la BBDD.
+     *
+     * @param player - Player - Jugador a eliminar
+     * @return <u>
+     * <li>Response.status(Response.Status.CREATED) - Operación exitosa</li>
+     * <li>Response.serverError() - Operación fallida</li>
+     * </u>
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     @POST
     @Path("/deletePlayer")
     @Consumes(MediaType.APPLICATION_JSON)

@@ -18,10 +18,13 @@
     <section class="overflow-hidden">
         <div class="container">
             <div class="row gx-lg-5 align-items-center mb-2 text-center">
+                
+                <!-- Heading -->
                 <div class="row">
                     <h5>Se han jugado los siguiente partidos con estos resultados:</h5>
                 </div>
 
+                <!-- Table of Results -->
                 <div class="row">
                     <table class="table">
                         <thead>
@@ -34,20 +37,25 @@
                             </tr>
                         </thead>
                         <tbody id="bodyTable">
-
+                            <!-- Results will be dynamically added here -->
                         </tbody>
                     </table>
                 </div>
 
+                <!-- Form and Button -->
                 <div class="row">
                     <form action="/WebProject/index.jsp" method="GET">
-                        <button
-                            class="btn btn-secondary col-md-1 position-relative col-sm-2 my-4 top-50 start-50 translate-middle ">INICIO</button>
+                        <!-- Button to navigate to the home page -->
+                        <button class="btn btn-secondary col-md-1 position-relative col-sm-2 my-4 top-50 start-50 translate-middle">
+                            INICIO
+                        </button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Linking the JavaScript file -->
     <script src="resolucion.js"></script>
 </body>
 

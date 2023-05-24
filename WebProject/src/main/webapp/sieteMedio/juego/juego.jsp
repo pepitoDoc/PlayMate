@@ -3,12 +3,12 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!--Juego de las siete y media, para 3 jugadores, almacenando las partidas, y con una gestión de consultas de las partidas por jugadores
-    Se han de almacenar las partidas, y debe incluir una gestión de consulta de partidas por jugadores-->
+    <!-- Juego de las siete y media, para 3 jugadores, almacenando las partidas, y con una gestión de consultas de las partidas por jugadores
+    Se han de almacenar las partidas, y debe incluir una gestión de consulta de partidas por jugadores -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="../../resources/sieteymedio.png" type="image/x-icon" />
-    <title>Juego</title>
+    <title>Siete y medio</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -18,29 +18,35 @@
     <link href="juego.css" rel="stylesheet" />
   </head>
   <body>
-    <div class="container">
-        <div class="row">
-            <h1 class="text-center">Siete y medio</h1>
-        </div>
-        <div class="row">
-            <h4 class="text-center mt-4" id="turno">ee</h4>
-        </div>
-        <div class="row d-flex justify-content-center">
-            <div class="col-2 mt-4">
-              <button type="button" class="btn btn-primary" id="bocarriba">Carta bocarriba</button>
-            </div>
-            <div class="col-2 mt-4">
-              <button type="button" class="btn btn-primary" id="bocabajo">Carta bocabajo</button>
-            </div>
-            <div class="col-2 mt-4">
-              <button type="button" class="btn btn-primary" id="plantarse">Plantarse</button>
-            </div>
+
+    <section class="overflow-hidden">
+      <div class="container">
+          <div class=" align-items-center text-center">
+              <div style="z-index: 10;">
+                  <h1 class="my-lg-4 display-5 fw-bold ls-tight" style="color: hsl(0, 0%, 0%)">
+                      <img src="../../resources/sieteymedio.png" class="img-fluid me-3" alt="Responsive image">SIETE
+                      <span style="color: hsl(221, 100%, 50%)">Y</span>
+                      <span style="color: hsl(0, 0%, 0%)">MEDIO</span>
+                  </h1>
+              </div>
           </div>
-          <div class="row justify-content-md-center mt-4" id="cartas"></div>
-        </div>
-    </div>
+      </div>
+      <div class="row my-4" style="margin-top: -10px;">
+          <h4 class="justify-content-center text-center" id="turno">
+            <!-- Placeholder for displaying the current player's turn -->
+          </h3>
+      </div>
+      <div class="row justify-content-center mb-2">
+          <div class="btn btn-primary col-sm-3 mx-5" id="bocarriba">CARTA BOCA ARRIBA</div>
+          <div class="btn btn-primary col-sm-3 mx-5" id="bocabajo">CARTA BOCA ABAJO</div>
+          <div class="btn btn-primary col-sm-3 mx-5" id="plantarse">PLANTARSE</div>
+      </div>
+      <div class="row justify-content-center my-5" id="cartas"></div>
+  </section>
+
 
     <form id="registerData" action="/WebProject/register-game-siete" method="POST">
+      <!-- Hidden input fields for storing player names, scores, and bets -->
       <input type="hidden" name="player1" value="">
       <input type="hidden" name="player2" value="">
       <input type="hidden" name="player3" value="">

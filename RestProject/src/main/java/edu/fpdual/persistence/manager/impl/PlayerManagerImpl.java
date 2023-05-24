@@ -117,6 +117,13 @@ public class PlayerManagerImpl implements PlayerManager {
         }
     }
 
+    /**
+     * Realiza una operación delete que elimina a un jugador de la BBDD.
+     *
+     * @param con - Connection - Conexión con la BBDD
+     * @param player - Player - Jugador a registrar
+     * @return int - Resultado de la operación (n.º filas introducidas)
+     */
     public int delete(Connection con, Player player) {
         String sql = "DELETE FROM player WHERE nickname LIKE ? AND password LIKE ?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
