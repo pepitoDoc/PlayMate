@@ -20,9 +20,10 @@ public class PlayerService {
     }
 
     public String deletePlayer(Player player){
+
         String result = "0";
 
-        Player playerFound = this.playerClient.findPlayer(player.getNickname(), player.getPassword());
+        Player playerFound = this.playerClient.findPlayer(player.getNickname(), player.getEmail());
         if(playerFound != null){
             if(player.getNickname().equals(playerFound.getNickname()) && player.getPassword().equals(playerFound.getPassword())){
                 result = "1";
@@ -31,7 +32,7 @@ public class PlayerService {
             }
         }
         if(result.equals("1")){
-            Response response = new PlayerClient().deletePlayer(player);
+            Response response = this.playerClient.deletePlayer(player);
             if(response.getStatus() == 201){
                 return "1";
             }else{

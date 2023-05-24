@@ -131,6 +131,14 @@ public class PlayerService {
 
     }
 
+    /**
+     * Realiza una operación delete que elimina a un usuario
+     *
+     * @param player - Player - Jugador con la nueva contraseña
+     * @return int - Resultado de la operación (n.º de filas afectadas)
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public int deletePlayer(Player player) throws SQLException, ClassNotFoundException {
 
         Connection con = null;

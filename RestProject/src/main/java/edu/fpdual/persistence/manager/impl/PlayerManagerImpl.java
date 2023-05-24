@@ -117,6 +117,15 @@ public class PlayerManagerImpl implements PlayerManager {
         }
     }
 
+    /**
+     * Realiza una operación delete que modifica la contraseña del jugador.
+     * Para ello, en el objeto Player que se recibe, se busca dicho jugador
+     * en la BBDD usando su nickname, y se valida la operación con su contraseña.
+     *
+     * @param con    - Connection - Conexión con la BBDD
+     * @param player - Jugador - Jugador a actualizar
+     * @return int - Resultado de la operación (n.º filas afectadas)
+     */
     public int delete(Connection con, Player player) {
         String sql = "DELETE FROM player WHERE nickname LIKE ? AND password LIKE ?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {

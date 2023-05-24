@@ -24,7 +24,6 @@ public class DeletePlayer extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         try{
             ObjectMapper mapper = new ObjectMapper();
-
             Player player = mapper.readValue(req.getReader(), Player.class);
             resp.setContentType("text/plain");
             resp.getWriter().write(this.playerService.deletePlayer(player));

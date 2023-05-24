@@ -112,7 +112,6 @@ public class PlayerController {
     @POST
     @Path("/updatePassword")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
     public Response updatePassword(Player player) throws SQLException, ClassNotFoundException {
 
         int result = playerService.updatePassword(player);
@@ -124,6 +123,17 @@ public class PlayerController {
 
     }
 
+    /**
+     * Realiza una operación delete que elimina a un usuario
+     *
+     * @param player - Player - Objeto jugador a borrar
+     * @return <u>
+     * <li>Response.status(Response.Status.CREATED) - Operación exitosa</li>
+     * <li>Response.serverError() - Operación fallida</li>
+     * </u>
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     @POST
     @Path("/deletePlayer")
     @Consumes(MediaType.APPLICATION_JSON)

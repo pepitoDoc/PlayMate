@@ -21,13 +21,13 @@ public class PlayerClient {
 
     public Response deletePlayer(Player player){
         return webTarget.path("/deletePlayer")
-                .request(MediaType.TEXT_PLAIN)
+                .request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(player, MediaType.APPLICATION_JSON));
     }
     public Response insertPlayer(Player player) {
 
         return webTarget.path("/insertPlayer")
-                .request(MediaType.TEXT_PLAIN)
+                .request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(player, MediaType.APPLICATION_JSON));
     }
 
@@ -49,7 +49,7 @@ public class PlayerClient {
     public Response updatePassword(Player player) {
 
         return webTarget.path("/updatePassword")
-                .request(MediaType.TEXT_PLAIN)
+                .request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(player, MediaType.APPLICATION_JSON));
 
     }
