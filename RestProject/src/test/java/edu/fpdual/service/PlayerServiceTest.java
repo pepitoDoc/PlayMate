@@ -96,4 +96,14 @@ public class PlayerServiceTest {
 
     }
 
+    @Test
+    public void testDeletePlayer_ok() throws SQLException, ClassNotFoundException{
+        when(connectorMock.getMySQLConnection()).thenReturn(connectionMock);
+        when(playerManagerImplMock.delete(connectionMock, playerMock)).thenReturn(1);
+
+        int result = playerServiceInject.deletePlayer(playerMock);
+
+        verify(connectionMock).close();
+        MatcherAssert.assertThat(result, Matchers.is(1));
+    }
 }

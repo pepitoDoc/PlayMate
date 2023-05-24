@@ -127,5 +127,27 @@ public class PlayerControllerTest {
 
     }
 
+
+    @Test
+    public void testDeletePlayer_ok() throws SQLException, ClassNotFoundException{
+
+        when(playerServiceMock.deletePlayer(playerMock)).thenReturn(1);
+
+        Response response = playerControllerInject.deletePlayer(playerMock);
+
+        MatcherAssert.assertThat(response.getStatus(), Matchers.is(201));
+
+    }
+
+    @Test
+    public void testDeletePlayer_ko() throws SQLException, ClassNotFoundException {
+
+        when(playerServiceMock.deletePlayer(playerMock)).thenReturn(0);
+
+        Response response = playerControllerInject.deletePlayer(playerMock);
+
+        MatcherAssert.assertThat(response.getStatus(), Matchers.is(500));
+
+    }
 }
 

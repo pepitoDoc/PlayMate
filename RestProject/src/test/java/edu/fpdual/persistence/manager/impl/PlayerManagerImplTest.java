@@ -202,4 +202,25 @@ public class PlayerManagerImplTest {
         MatcherAssert.assertThat(result, Matchers.is(0));
     }
 
+    @Test
+    void testDeletePlayer_ok() throws SQLException {
+
+        when(connectionMock.prepareStatement(anyString())).thenReturn(preparedStatementMock);
+        when(preparedStatementMock.executeUpdate()).thenReturn(1);
+        int result = playerManagerImplInject.delete(connectionMock, playerMock);
+
+        verify(preparedStatementMock).executeUpdate();
+
+        MatcherAssert.assertThat(result, Matchers.is(1));
+    }
+
+    @Test
+    void testDeletePlayer_ko() throws SQLException {
+
+        when(connectionMock.prepareStatement(anyString())).thenThrow(new SQLException(""));
+
+        int result = playerManagerImplInject.delete(connectionMock,playerMock);
+
+        MatcherAssert.assertThat(result, Matchers.is(0));
+    }
 }
