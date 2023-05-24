@@ -39,7 +39,7 @@ public class GameSieteService {
         }
     }
 
-    private long infoGana(String nickname, List<GameSiete> dataRetrieved) {
+    public long infoGana(String nickname, List<GameSiete> dataRetrieved) {
 
         List<Predicate<GameSiete>> predicatesWin = List.of(
                 gameSiete -> gameSiete.getPlayer1().equals(nickname) && ((gameSiete.getDealerScore() > 7.5f && gameSiete.getPlayer1score() < 7.5f) || (gameSiete.getPlayer1score() > gameSiete.getDealerScore())),

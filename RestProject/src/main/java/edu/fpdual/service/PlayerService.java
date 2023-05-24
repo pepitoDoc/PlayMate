@@ -132,10 +132,17 @@ public class PlayerService {
     }
 
     /**
+<<<<<<< HEAD
      * Realiza una operación delete que elimina a un jugador de la BBDD.
      *
      * @param player - Player - Jugador a eliminar
      * @return int - Resultado de la operación
+=======
+     * Realiza una operación delete que elimina a un usuario
+     *
+     * @param player - Player - Jugador con la nueva contraseña
+     * @return int - Resultado de la operación (n.º de filas afectadas)
+>>>>>>> 1d2b42e3569bfc7978e0632bd342413cccb66514
      * @throws SQLException
      * @throws ClassNotFoundException
      */
